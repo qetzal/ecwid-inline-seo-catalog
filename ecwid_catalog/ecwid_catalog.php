@@ -155,7 +155,7 @@ function show_ecwid_catalog($ecwid_store_id) {
 			foreach ($categories as $category) {
 				$category_url = ecwid_internal_construct_url($category["url"], array("ecwid_category_id" => $category["id"]));
 				$category_name = $category["name"];
-				$html .= "<div class='ecwid_catalog_category_name'><a href='" . $category_url . "'>" . $category_name . "</a><br /></div>";
+				$html .= "<div class='ecwid_catalog_category_name'><a href='" . htmlspecialchars($category_url) . "'>" . $category_name . "</a><br /></div>";
 			}
 		}
 
@@ -165,7 +165,7 @@ function show_ecwid_catalog($ecwid_store_id) {
 				$product_name = $product["name"];
 				$product_price = $product["price"] . "&nbsp;" . $profile["currency"];
 				$html .= "<div>";
-				$html .= "<span class='ecwid_product_name'><a href='" . $product_url . "'>" . $product_name . "</a></span>";
+				$html .= "<span class='ecwid_product_name'><a href='" . htmlspecialchars($product_url) . "'>" . $product_name . "</a></span>";
 				$html .= "&nbsp;&nbsp;<span class='ecwid_product_price'>" . $product_price . "</span>";
 				$html .= "</div>";
 			}
