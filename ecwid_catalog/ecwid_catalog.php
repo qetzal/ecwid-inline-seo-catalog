@@ -62,7 +62,7 @@ function show_ecwid($params) {
 
  	$ecwid_mobile_catalog_link = $params['ecwid_mobile_catalog_link'];
 	if (empty($ecwid_mobile_catalog_link)) {
-		$ecwid_mobile_catalog_link = "http://$ecwid_com/jsp/$store_id/catalog";
+		$ecwid_mobile_catalog_link = "//$ecwid_com/jsp/$store_id/catalog";
 	}
 
   $html_catalog = '';
@@ -98,7 +98,7 @@ function show_ecwid($params) {
 
 	$integration_code = <<<EOT
 <div>
-<script type="text/javascript" src="$protocol://$ecwid_com/script.js?$store_id"></script>
+<script type="text/javascript" src="//$ecwid_com/script.js?$store_id"></script>
 <script type="text/javascript"> xProductBrowser("categoriesPerRow=$ecwid_pb_categoriesperrow","views=grid($ecwid_pb_productspercolumn_grid,$ecwid_pb_productsperrow_grid) list($ecwid_pb_productsperpage_list) table($ecwid_pb_productsperpage_table)","categoryView=$ecwid_pb_defaultview","searchView=$ecwid_pb_searchview","style="$ecwid_default_category_str);</script>
 </div>
 <noscript>$html_catalog</noscript>
