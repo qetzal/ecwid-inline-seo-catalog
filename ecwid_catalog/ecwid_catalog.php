@@ -145,25 +145,25 @@ function show_ecwid_catalog($ecwid_store_id) {
 
 	if (is_array($product)) {
 		$html = "<div class='hproduct'>";
-		$html .= "<div class='ecwid_catalog_product_image photo'><img src='" . preg_replace('/http\:(\/\/)/i', '$1', $product["thumbnailUrl"]) . "'/></div>";
-		$html .= "<div class='ecwid_catalog_product_name fn'>" . iconv("UTF-8","CP1251",htmlentities($product["name"],ENT_COMPAT,"UTF-8")) . "</div>";
-		$html .= "<div class='ecwid_catalog_product_price price'>Price: " . "&nbsp;" . iconv("UTF-8","CP1251",$profile["currencyPrefix"]) . $product["price"] . "&nbsp;" . iconv("UTF-8","CP1251",$profile["currencySuffix"]) . "</div>";
-		$html .= "<div class='ecwid_catalog_product_description description'>" . iconv("UTF-8","CP1251",$product["description"]) . "</div>";
+		$html .= "<div class='ecwid_catalog_product_image photo'><img src='" . $product["thumbnailUrl"] . "'/></div>";
+		$html .= "<div class='ecwid_catalog_product_name fn'>" . htmlentities($product["name"],ENT_COMPAT,'UTF-8') . "</div>";
+		$html .= "<div class='ecwid_catalog_product_price price'>Price: " . $product["price"] . "&nbsp;" . $profile["currency"] . "</div>";
+		$html .= "<div class='ecwid_catalog_product_description description'>" . $product["description"] . "</div>";
 		$html .= "</div>";
 	} else {
 		if (is_array($categories)) {
 			foreach ($categories as $category) {
 				$category_url = ecwid_internal_construct_url($category["url"], array("ecwid_category_id" => $category["id"]));
-				$category_name = iconv("UTF-8","CP1251",$category["name"]);
-				$html .= "<div class='ecwid_catalog_category_name'><a href='" . $category_url . "'>" . $category_name . "</a><br /></div>";
+				$category_name = $category["name"];
+				$html .= "<div class='ecwid_catalog_category_name'><a href='" . htmlspecialchars($category_url) . "'>" . $category_name . "</a><br /></div>";
 			}
 		}
 
 		if (is_array($products)) {
 			foreach ($products as $product) {
 				$product_url = ecwid_internal_construct_url($product["url"], array("ecwid_product_id" => $product["id"]));
-				$product_name = iconv("UTF-8","CP1251",$product["name"]);
-				$product_price = iconv("UTF-8","CP1251",$profile["currencyPrefix"]) . $product["price"] . "&nbsp;" . iconv("UTF-8","CP1251",$profile["currencySuffix"]);
+				$product_name = $product["name"];
+				$product_price = $product["price"] . "&nbsp;" . $profile["currency"];
 				$html .= "<div>";
 				$html .= "<span class='ecwid_product_name'><a href='" . htmlspecialchars($product_url) . "'>" . $product_name . "</a></span>";
 				$html .= "&nbsp;&nbsp;<span class='ecwid_product_price'>" . $product_price . "</span>";
