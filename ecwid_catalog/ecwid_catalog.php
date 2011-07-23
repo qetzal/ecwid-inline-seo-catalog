@@ -144,9 +144,12 @@ function show_ecwid_catalog($ecwid_store_id) {
 	$html = '';
 
 	if (is_array($product)) {
+		$product_name = iconv("UTF-8","CP1251",htmlentities($product["name"],ENT_COMPAT,"UTF-8"));
 		$html = "<div class='hproduct'>";
-		$html .= "<div class='ecwid_catalog_product_image photo'><img src='" . preg_replace('/http\:(\/\/)/i', '$1', $product["thumbnailUrl"]) . "'/></div>";
-		$html .= "<div class='ecwid_catalog_product_name fn'>" . iconv("UTF-8","CP1251",htmlentities($product["name"],ENT_COMPAT,"UTF-8")) . "</div>";
+		if (!empty($product["thumbnailUrl"])) {
+			$html .= "<div class='ecwid_catalog_product_image photo'><img src='" . preg_replace('/http\:(\/\/)/i', '$1', $product["thumbnailUrl"]) . "' alt='{$product_name}' title='{$product_name}'/></div>";
+		}
+		$html .= "<div class='ecwid_catalog_product_name fn'>{$product_name}</div>";
 		$html .= "<div class='ecwid_catalog_product_price price'>Price: " . "&nbsp;" . iconv("UTF-8","CP1251",$profile["currencyPrefix"]) . $product["price"] . "&nbsp;" . iconv("UTF-8","CP1251",$profile["currencySuffix"]) . "</div>";
 		$html .= "<div class='ecwid_catalog_product_description description'>" . iconv("UTF-8","CP1251",$product["description"]) . "</div>";
 		$html .= "</div>";
