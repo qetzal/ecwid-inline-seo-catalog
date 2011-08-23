@@ -145,7 +145,7 @@ function show_ecwid_catalog($ecwid_store_id) {
 
 	if (is_array($product)) {
 		$html = "<div class='hproduct'>";
-		$html .= "<div class='ecwid_catalog_product_image photo'><img src='" . $product["thumbnailUrl"] . "'/></div>";
+		$html .= "<div class='ecwid_catalog_product_image photo'><img src='" . $product["thumbnailUrl"] . "' alt='" . $product["sku"] . " " . htmlentities($product["name"],ENT_COMPAT,'UTF-8') . "'/></div>";
 		$html .= "<div class='ecwid_catalog_product_name fn'>" . htmlentities($product["name"],ENT_COMPAT,'UTF-8') . "</div>";
 		$html .= "<div class='ecwid_catalog_product_price price'>Price: " . $product["price"] . "&nbsp;" . $profile["currency"] . "</div>";
 		$html .= "<div class='ecwid_catalog_product_description description'>" . $product["description"] . "</div>";
