@@ -59,6 +59,7 @@ function show_ecwid($params) {
 	if (empty($ecwid_show_seo_catalog)) {
 		$ecwid_show_seo_catalog = false;
 	}
+	$ecwid_seo_for_yandex = !empty($params['ecwid_seo_for_yandex']);
 
  	$ecwid_mobile_catalog_link = $params['ecwid_mobile_catalog_link'];
 	if (empty($ecwid_mobile_catalog_link)) {
@@ -96,12 +97,23 @@ function show_ecwid($params) {
 		$protocol = "https";
 	}
 
+    if ($ecwid_seo_for_yandex) {
+        $html_catalog = <<<EOT
+<div id="ecwid-inline-catalog">$html_catalog</div>
+<script>document.getElementById('ecwid-inline-catalog').style.display='none';</script>
+EOT;
+    } else {
+        $html_catalog = <<<EOT
+<noscript>$html_catalog</noscript>
+EOT;
+    }
+
 	$integration_code = <<<EOT
 <div>
 <script type="text/javascript" src="//$ecwid_com/script.js?$store_id"></script>
 <script type="text/javascript"> xProductBrowser("categoriesPerRow=$ecwid_pb_categoriesperrow","views=grid($ecwid_pb_productspercolumn_grid,$ecwid_pb_productsperrow_grid) list($ecwid_pb_productsperpage_list) table($ecwid_pb_productsperpage_table)","categoryView=$ecwid_pb_defaultview","searchView=$ecwid_pb_searchview","style="$ecwid_default_category_str);</script>
 </div>
-<noscript>$html_catalog</noscript>
+$html_catalog
 $ecwid_open_product
 EOT;
   
