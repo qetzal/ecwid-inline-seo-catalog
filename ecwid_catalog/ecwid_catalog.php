@@ -96,13 +96,23 @@ function show_ecwid($params) {
 		$protocol = "https";
 	}
 
+	$ecwid_element_id = "ecwid-inline-catalog";
+        if (!empty($params['ecwid_element_id'])) {
+            $ecwid_element_id = $params['ecwid_element_id'];
+        }
 	$integration_code = <<<EOT
 <div>
 <script type="text/javascript" src="//$ecwid_com/script.js?$store_id"></script>
-<script type="text/javascript"> xProductBrowser("categoriesPerRow=$ecwid_pb_categoriesperrow","views=grid($ecwid_pb_productspercolumn_grid,$ecwid_pb_productsperrow_grid) list($ecwid_pb_productsperpage_list) table($ecwid_pb_productsperpage_table)","categoryView=$ecwid_pb_defaultview","searchView=$ecwid_pb_searchview","style="$ecwid_default_category_str);</script>
-</div>
-<noscript>$html_catalog</noscript>
+<div id="$ecwid_element_id">$html_catalog</div>
+<script type="text/javascript"> xProductBrowser(
+	"categoriesPerRow=$ecwid_pb_categoriesperrow",
+	"views=grid($ecwid_pb_productspercolumn_grid,$ecwid_pb_productsperrow_grid) list($ecwid_pb_productsperpage_list) table($ecwid_pb_productsperpage_table)",
+	"categoryView=$ecwid_pb_defaultview",
+	"searchView=$ecwid_pb_searchview",
+	"id=$ecwid_element_id",
+	"style="$ecwid_default_category_str);</script>
 $ecwid_open_product
+</div>
 EOT;
   
 	return $integration_code;
